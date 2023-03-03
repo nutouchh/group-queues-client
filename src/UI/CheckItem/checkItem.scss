@@ -1,0 +1,70 @@
+@import '../../styles/vars.scss';
+
+.check-item {
+	display: flex;
+	justify-content: space-between;
+	background-color: rgba($color: #7ec4f8, $alpha: 0.23);
+	padding: 10px 16px;
+	border-radius: 5px;
+
+	&__name {
+		color: #000;
+		font-size: 20px;
+	}
+
+	&__right {
+		display: inline-flex;
+		align-items: center;
+		justify-content: flex-start;
+		min-width: 230px;
+		gap: 20px;
+
+		.MuiFormControl-root {
+			.css-m5hdmq-MuiInputBase-root-MuiInput-root-MuiSelect-root {
+				&::before {
+					border-bottom: none;
+				}
+				&:hover::before {
+					border-bottom: none;
+				}
+			}
+
+			margin: 0;
+
+			svg {
+				transform: translateY(-2px);
+			}
+
+			> div {
+				border-radius: 10px;
+				justify-content: flex-end;
+
+				&::after {
+					content: none;
+				}
+
+				> div {
+					border-radius: 10px;
+					padding-left: 10px;
+					padding-right: 0;
+					width: auto;
+				}
+
+				&.green-light > div {
+					background-color: $green-light;
+				}
+				&.primary-light > div {
+					background-color: $primary-light;
+				}
+				&.light > div {
+					background-color: $light;
+				}
+			}
+		}
+
+		svg {
+			height: 30px;
+			cursor: pointer;
+		}
+	}
+}
