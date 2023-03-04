@@ -12,9 +12,9 @@ const StudentsList: FC = () => {
 	const { data } = useGetStudentsQuery();
 
 	const students = useTypedSelector(state => state.students.list);
-	const subjectsStudentsIds = useTypedSelector(state => {
-		return state.subjects.list[state.subjects.activeId];
-	});
+	// const subjectsStudentsIds = useTypedSelector(state => {
+	// 	return state.subjects.list[state.subjects.activeId];
+	// });
 	const dispatch = useTypedDispatch();
 
 	// const setSortedStudents = (students: IStudent[]) => {
