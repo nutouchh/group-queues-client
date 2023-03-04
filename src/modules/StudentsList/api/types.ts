@@ -7,9 +7,8 @@ export enum StudentStatus {
 export interface IStudent {
 	name: string;
 	id: number;
-	status: StudentStatus;
 }
 
-export interface IStudentState {
-	list: IStudent[];
-}
+export type IStudentWithData = {
+	status: keyof typeof StudentStatus;
+} & IStudent;
