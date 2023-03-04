@@ -1,29 +1,50 @@
-import { FC } from 'react';
-import { useTypedSelector } from '../../../../store/store';
+import { FC, useEffect } from 'react';
+import { useTypedDispatch, useTypedSelector } from '../../../../store/store';
+import {
+	setActiveSubject,
+	setActiveSubjectId,
+} from '../../../../store/subjects/subjectsSlice';
 import { ChoiceItem } from '../../../../UI/ChoiceItem/ChoiceItem';
+import {
+	useGetSubjectByIdQuery,
+	useGetSubjectsQuery,
+} from '../../api/subjectsApi';
 import './subjectsList.scss';
-import { setActiveSubject } from '../../../../store/subjects/subjectsSlice';
-import { useTypedDispatch } from '../../../../store/store';
 
 const SubjectsList: FC = () => {
-	const subjects = useTypedSelector(state => state.subjects.list);
+	const { data: subjects } = useGetSubjectsQuery();
 	const activeId = useTypedSelector(state => state.subjects.activeId);
+	const { data: fetchedActiveSubject, refetch } =
+		useGetSubjectByIdQuery(activeId);
+
 	const dispatch = useTypedDispatch();
 
 	const onChange = (id: number): void => {
-		dispatch(setActiveSubject(id));
+		dispatch(setActiveSubjectId(id));
 	};
+
+	useEffect(() => {
+		refetch();
+	}, [activeId]);
+
+	useEffect(() => {
+		if (fetchedActiveSubject) {
+			dispatch(setActiveSubject(fetchedActiveSubject));
+		}
+	}, [fetchedActiveSubject]);
 
 	return (
 		<ul className='subjects-list'>
-			{subjects.map(({ id, name }, i) => (
-				<ChoiceItem
-					text={name}
-					active={id == activeId}
-					key={id}
-					onClick={() => onChange(id)}
-				></ChoiceItem>
-			))}
+			{subjects
+				? subjects.map(({ id, name }, i) => (
+						<ChoiceItem
+							text={name}
+							active={id == activeId}
+							key={id}
+							onClick={() => onChange(id)}
+						></ChoiceItem>
+				  ))
+				: null}
 		</ul>
 	);
 };

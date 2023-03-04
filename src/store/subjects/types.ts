@@ -1,10 +1,6 @@
-export interface ISubject {
-	name: string;
-	id: number;
-	studentsData: number[];
-}
+import { ISubject } from '../../modules/SubjectsList';
 
 export interface ISubjectState {
-	list: ISubject[];
+	activeSubject: ISubject | undefined;
 	activeId: number;
 }
