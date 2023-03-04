@@ -1,27 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import {
-	IStudent,
-	IStudentState,
-	StudentStatus,
-} from '../../modules/StudentsList/api/types';
+import { IStudent } from '../../modules/StudentsList/api/types';
+import { IStudentState } from './types';
 
 const initialState: IStudentState = {
-	list: [
-		{ name: 'Иванов Иван Иванович', id: 0, status: StudentStatus.WAITING },
-		{ name: 'Петров Пётр Петрович', id: 1, status: StudentStatus.WAITING },
-		{
-			name: 'Сергеев Сергей Сергеевич',
-			id: 2,
-			status: StudentStatus.WAITING,
-		},
-		{
-			name: 'Алексеев Алексей Алексеевич',
-			id: 3,
-			status: StudentStatus.WAITING,
-		},
-		{ name: '...', id: 4, status: StudentStatus.WAITING },
-	],
+	list: [],
 };
 
 const studentsSlice = createSlice({

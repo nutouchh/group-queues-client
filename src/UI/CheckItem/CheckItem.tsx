@@ -10,17 +10,17 @@ const CheckItem: FC<{
 	text: string;
 	canBeChecked?: boolean;
 	onClick: () => void;
-	status?: StudentStatus;
+	status?: keyof typeof StudentStatus;
 	onStatusChange?: (e: SelectChangeEvent) => void;
 }> = ({ canBeChecked, text, onClick, status, onStatusChange }) => {
 	let statusClassName = '';
 	if (status) {
 		switch (status) {
-			case StudentStatus.PASSED:
+			case 'PASSED':
 				statusClassName = 'green-light';
 				break;
 
-			case StudentStatus.SKIP_AHEAD:
+			case 'SKIP_AHEAD':
 				statusClassName = 'primary-light';
 				break;
 
@@ -42,19 +42,16 @@ const CheckItem: FC<{
 							inputProps={{ 'aria-label': 'Without label' }}
 							className={statusClassName}
 						>
-							<MenuItem
-								value={StudentStatus.PASSED}
-								className='set-green-dark'
-							>
+							<MenuItem value={'PASSED'} className='set-green-dark'>
 								{StudentStatus.PASSED}
 							</MenuItem>
 							<MenuItem
-								value={StudentStatus.SKIP_AHEAD}
+								value={'SKIP_AHEAD'}
 								className='set-primary-dark'
 							>
 								{StudentStatus.SKIP_AHEAD}
 							</MenuItem>
-							<MenuItem value={StudentStatus.WAITING}>
+							<MenuItem value={'WAITING'}>
 								{StudentStatus.WAITING}
 							</MenuItem>
 						</Select>

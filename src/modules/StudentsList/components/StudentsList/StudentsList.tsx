@@ -1,75 +1,126 @@
-import { FC } from 'react';
+import { FC, useCallback, useMemo } from 'react';
 import { useTypedSelector } from '../../../../store/store';
 import CheckItem from '../../../../UI/CheckItem/CheckItem';
 import './studentsList.scss';
 import { useTypedDispatch } from '../../../../store/store';
 import { setStudents } from '../../../../store/students/studentsSlice';
-import { IStudent, StudentStatus } from '../../api/types';
+import { IStudent, IStudentWithData, StudentStatus } from '../../api/types';
 import { SelectChangeEvent } from '@mui/material/Select';
 import { useGetStudentsQuery } from '../../api/studentsApi';
+import { setActiveSubject } from '../../../../store/subjects/subjectsSlice';
+import { ISubjectStudentsData } from '../../../SubjectsList/api/types';
 
 const StudentsList: FC = () => {
-	const { data } = useGetStudentsQuery();
+	const { data: rawStudents } = useGetStudentsQuery();
+	const activeSubject = useTypedSelector(
+		state => state.subjects.activeSubject
+	);
 
-	const students = useTypedSelector(state => state.students.list);
-	// const subjectsStudentsIds = useTypedSelector(state => {
-	// 	return state.subjects.list[state.subjects.activeId];
-	// });
 	const dispatch = useTypedDispatch();
 
-	// const setSortedStudents = (students: IStudent[]) => {
+	const sortedStudents = useMemo<IStudentWithData[] | undefined>(
+		function (): IStudentWithData[] | undefined {
+			if (!rawStudents || !activeSubject) {
+				return undefined;
+			}
 
-	// }
+			const newStudents: IStudentWithData[] = activeSubject.studentsData.map(
+				student => {
+					const newStudent: IStudentWithData = {
+						...student,
+						name: '...',
+					};
 
-	const onCheck = (id: number) => {
-		const newStudents = students.filter(student => student.id != id);
+					const name = rawStudents.find(
+						student => student.id == newStudent.id
+					)?.name;
 
-		const checkedStudent = students.find(student => student.id == id);
-		if (checkedStudent) {
-			newStudents.push({ ...checkedStudent, status: StudentStatus.WAITING });
+					if (name) {
+						newStudent.name = name;
+					}
+
+					return newStudent;
+				}
+			);
+
+			return newStudents;
+		},
+		[rawStudents, activeSubject]
+	);
+
+	const onCheck = (students: IStudentWithData[], id: number) => {
+		if (activeSubject) {
+			const newStudents: ISubjectStudentsData[] = [];
+
+			students.forEach((student, i) => {
+				if (student.id != id) {
+					newStudents.push({ id: student.id, status: student.status });
+				}
+			});
+
+			const checkedStudent: ISubjectStudentsData | undefined = students.find(
+				student => student.id == id
+			);
+
+			if (checkedStudent) {
+				newStudents.push({ id: checkedStudent.id, status: 'WAITING' });
+			}
+
+			dispatch(
+				setActiveSubject({ ...activeSubject, studentsData: newStudents })
+			);
 		}
-
-		dispatch(setStudents(newStudents));
 	};
 
-	const onStatusChange = (e: SelectChangeEvent, i: number) => {
-		const targetStatus = e.target.value;
+	const onStatusChange = (
+		students: IStudentWithData[],
+		e: SelectChangeEvent,
+		index: number
+	) => {
+		if (activeSubject) {
+			const targetStatus = e.target.value as keyof typeof StudentStatus;
 
-		let studentStatus: string;
-		for (studentStatus in StudentStatus) {
-			if (
-				studentStatus == 'SKIP_AHEAD' ||
-				studentStatus == 'PASSED' ||
-				studentStatus == 'WAITING'
-			) {
-				if (StudentStatus[studentStatus] == targetStatus) {
-					const student = students[i];
-					const newStudents: IStudent[] = [
-						...students.slice(0, i),
-						{ ...student, status: StudentStatus[studentStatus] },
-						...students.slice(i + 1),
-					];
+			const newStudents: ISubjectStudentsData[] = students.map(
+				(student, i) => {
+					if (i < index || i > index) {
+						return {
+							id: student.id,
+							status: student.status,
+						};
+					}
 
-					dispatch(setStudents(newStudents));
-
-					break;
+					return {
+						id: student.id,
+						status: targetStatus,
+					};
 				}
-			}
+			);
+
+			dispatch(
+				setActiveSubject({
+					...activeSubject,
+					studentsData: newStudents,
+				})
+			);
 		}
 	};
 
 	return (
 		<ul className='students-list'>
-			{students.map((student, i) => (
-				<CheckItem
-					text={student.name}
-					key={student.id}
-					canBeChecked={i < 3}
-					onClick={() => onCheck(student.id)}
-					status={student.status}
-					onStatusChange={(e: SelectChangeEvent) => onStatusChange(e, i)}
-				></CheckItem>
-			))}
+			{sortedStudents
+				? sortedStudents.map((student, i) => (
+						<CheckItem
+							text={student.name}
+							key={student.id}
+							canBeChecked={i < 3}
+							onClick={() => onCheck(sortedStudents, student.id)}
+							status={student.status}
+							onStatusChange={(e: SelectChangeEvent) =>
+								onStatusChange(sortedStudents, e, i)
+							}
+						></CheckItem>
+				  ))
+				: null}
 		</ul>
 	);
 };

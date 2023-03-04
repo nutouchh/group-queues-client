@@ -1,8 +1,8 @@
 import { StudentStatus } from '../../StudentsList';
 
-interface ISubjectStudentsData {
+export interface ISubjectStudentsData {
 	id: number;
-	status: StudentStatus;
+	status: keyof typeof StudentStatus;
 }
 
 export interface ISubject {
