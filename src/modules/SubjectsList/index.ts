@@ -1,16 +1,7 @@
+import { subjectsApi } from './api/subjectsApi';
 import SubjectsList from './components/SubjectsList/SubjectsList';
-import {
-	subjectsReducer,
-	subjectsReducerPath,
-	subjectsMiddleware,
-} from './api/subjectsApi';
-import { ISubject } from './api/types';
+import { ISubject, ISubjectStudentsData } from './api/types';
 
-export {
-	SubjectsList,
-	subjectsReducerPath,
-	subjectsReducer,
-	subjectsMiddleware,
-};
+export { SubjectsList, subjectsApi };
 
-export type { ISubject };
+export type { ISubject, ISubjectStudentsData };

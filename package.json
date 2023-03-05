@@ -2,11 +2,13 @@
 	"name": "group-queues",
 	"private": true,
 	"version": "0.0.0",
-	"type": "module",
+	"type": "commonjs",
 	"scripts": {
 		"dev": "vite",
 		"build": "tsc && vite build",
-		"preview": "vite preview"
+		"preview": "vite preview",
+		"sb": "storybook dev -p 6006",
+		"sb:build": "storybook build"
 	},
 	"dependencies": {
 		"@emotion/react": "^11.10.6",
@@ -18,7 +20,14 @@
 		"react-dom": "^18.2.0",
 		"react-redux": "^8.0.5",
 		"react-router-dom": "^6.8.2",
-		"redux": "^4.2.1"
+		"redux": "^4.2.1",
+		"@storybook/addon-essentials": "^7.0.0-beta.61",
+		"@storybook/addon-interactions": "^7.0.0-beta.61",
+		"@storybook/addon-links": "^7.0.0-beta.61",
+		"@storybook/blocks": "^7.0.0-alpha.8",
+		"@storybook/react": "^7.0.0-beta.61",
+		"@storybook/react-vite": "^7.0.0-beta.61",
+		"@storybook/testing-library": "^0.0.14-next.1"
 	},
 	"devDependencies": {
 		"@types/react": "^18.0.28",
@@ -30,8 +39,15 @@
 		"eslint-config-prettier": "^8.6.0",
 		"eslint-plugin-prettier": "^4.2.1",
 		"prettier": "^2.8.4",
+		"prop-types": "^15.8.1",
 		"sass": "^1.58.3",
+		"storybook": "^7.0.0-beta.61",
 		"typescript": "^4.9.3",
 		"vite": "^4.1.0"
-	}
+	},
+	"browserslist": [
+		">0.5%",
+		"last 1 version",
+		"not dead"
+	]
 }

@@ -1,5 +1,7 @@
-import StudentsList from './components/StudentsList/StudentsList';
 import { studentsApi } from './api/studentsApi';
-import { StudentStatus } from './api/types';
+import StudentsList from './components/StudentsList/StudentsList';
+import { StudentStatus, IStudent } from './api/types';
 
-export { StudentsList, studentsApi, StudentStatus };
+export { StudentsList, studentsApi };
+
+export type { StudentStatus, IStudent };

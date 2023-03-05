@@ -1,0 +1,29 @@
+# CheckItem
+
+## Renders list item with status and check label
+
+<br />
+### Work example
+
+import CheckItem from './CheckItem.tsx';
+
+<CheckItem
+	text='EXAMPLE'
+	canBeChecked='1'
+	onCheck='1'
+	status='PASSED'
+	onStatusChange='1'
+/>
+
+### Parameters
+
+import Block from '../Docs/Block';
+import BlocksList from '../Docs/BlocksList';
+
+<BlocksList>
+	<Block name='text' descr='text inside item' bgColor='danger' />
+	<Block name='canBeChecked' descr='add check label' />
+	<Block name='status' descr='what StudentStatus to be set' />
+	<Block name='onCheck()' descr='check event handler' />
+	<Block name='onStatusChange()' descr='status change event handler' />
+</BlocksList>

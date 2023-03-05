@@ -1,8 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { IStudent } from '../../modules/StudentsList/api/types';
 import { IStudentState } from './types';
+import { IStudent } from '../../modules/StudentsList';
 
+/**
+ * @property list: raw students list
+ */
 const initialState: IStudentState = {
 	list: [],
 };
@@ -10,12 +13,7 @@ const initialState: IStudentState = {
 const studentsSlice = createSlice({
 	name: 'subjects',
 	initialState,
-	reducers: {
-		setStudents(state, action: PayloadAction<IStudent[]>) {
-			state.list = action.payload;
-		},
-	},
+	reducers: {},
 });
 
-export const { setStudents } = studentsSlice.actions;
 export default studentsSlice.reducer;

@@ -4,7 +4,7 @@ import {
 	setActiveSubject,
 	setActiveSubjectId,
 } from '../../../../store/subjects/subjectsSlice';
-import { ChoiceItem } from '../../../../UI/ChoiceItem/ChoiceItem';
+import ChoiceItem from '../../../../UI/ChoiceItem/ChoiceItem';
 import {
 	useGetSubjectByIdQuery,
 	useGetSubjectsQuery,
@@ -12,33 +12,45 @@ import {
 } from '../../api/subjectsApi';
 import './subjectsList.scss';
 
+/**
+ * Component to render list of subjects
+ */
 const SubjectsList: FC = () => {
-	const { data: subjects } = useGetSubjectsQuery();
+	// get 'slice' state
 	const activeId = useTypedSelector(state => state.subjects.activeId);
 	const activeSubject = useTypedSelector(
 		state => state.subjects.activeSubject
 	);
 
+	// get 'api' data
+	const { data: subjects } = useGetSubjectsQuery();
 	const [putActiveSubject] = usePutSubjectByIdMutation();
-	const { data: fetchedActiveSubject, refetch } =
+	const { data: fetchedActiveSubject, refetch: fetchActiveSubject } =
 		useGetSubjectByIdQuery(activeId);
 
+	// get dispatch
 	const dispatch = useTypedDispatch();
 
+	/**
+	 * @param id clicked subject id
+	 */
 	const onChange = (id: number): void => {
 		dispatch(setActiveSubjectId(id));
 	};
 
+	// when active id changes we fetch new subject data
 	useEffect(() => {
-		refetch();
+		fetchActiveSubject();
 	}, [activeId]);
 
+	// when subject data changes we set them to local state
 	useEffect(() => {
 		if (fetchedActiveSubject) {
 			dispatch(setActiveSubject(fetchedActiveSubject));
 		}
 	}, [fetchedActiveSubject]);
 
+	// when user changes local subject data we send them to the server
 	useEffect(() => {
 		if (activeSubject) {
 			putActiveSubject(activeSubject);
