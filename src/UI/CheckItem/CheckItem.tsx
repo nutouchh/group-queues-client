@@ -3,16 +3,22 @@ import Icons from '../Icons/Icons';
 import './checkItem.scss';
 import { motion } from 'framer-motion';
 import { StudentStatus } from '../../modules/StudentsList/api/types';
-import { Select, MenuItem, InputLabel, FormControl } from '@mui/material';
+import { Select, MenuItem, FormControl } from '@mui/material';
 import { SelectChangeEvent } from '@mui/material/Select';
 
+/**
+ *	List item with status and check label
+ * @param canBeChecked - add check label
+ * @param status - what StudentStatus to be set
+ */
 const CheckItem: FC<{
 	text: string;
 	canBeChecked?: boolean;
-	onClick: () => void;
+	onCheck?: () => void;
 	status?: keyof typeof StudentStatus;
 	onStatusChange?: (e: SelectChangeEvent) => void;
-}> = ({ canBeChecked, text, onClick, status, onStatusChange }) => {
+}> = ({ canBeChecked, text, onCheck, status, onStatusChange }) => {
+	// set statuses' colors in drop-down menu
 	let statusClassName = '';
 	if (status) {
 		switch (status) {
@@ -30,10 +36,12 @@ const CheckItem: FC<{
 	}
 
 	return (
+		// motion.li is used to add animation after order changing
 		<motion.li layout transition={{ duration: 0.5 }} className='check-item'>
 			<span className='check-item__name'>{text}</span>
 			<div className='check-item__right'>
 				{status ? (
+					// FormControl is used to add drop-down menu
 					<FormControl variant='standard' sx={{ m: 1, minWidth: 180 }}>
 						<Select
 							value={status}
@@ -57,7 +65,9 @@ const CheckItem: FC<{
 						</Select>
 					</FormControl>
 				) : null}
-				{canBeChecked ? <Icons.getCheck onClick={onClick} /> : null}
+				{canBeChecked && onCheck ? (
+					<Icons.getCheck onClick={onCheck} />
+				) : null}
 			</div>
 		</motion.li>
 	);

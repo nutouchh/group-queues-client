@@ -4,7 +4,7 @@ import {
 	setActiveSubject,
 	setActiveSubjectId,
 } from '../../../../store/subjects/subjectsSlice';
-import { ChoiceItem } from '../../../../UI/ChoiceItem/ChoiceItem';
+import ChoiceItem from '../../../../UI/ChoiceItem/ChoiceItem';
 import {
 	useGetSubjectByIdQuery,
 	useGetSubjectsQuery,

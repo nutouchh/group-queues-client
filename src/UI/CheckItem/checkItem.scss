@@ -39,11 +39,28 @@
 				border-radius: 10px;
 				justify-content: flex-end;
 
-				&::after {
+				&.Mui-focused {
+					> div {
+						box-shadow: 0 0 1px 1px #00000056;
+					}
+					&.green-light > div {
+						background-color: rgba($green-light, 0.8);
+					}
+					&.primary-light > div {
+						background-color: rgba($primary-light, 0.8);
+					}
+					&.light > div {
+						background-color: rgba($light, 0.6);
+					}
+				}
+
+				&::after,
+				&::before {
 					content: none;
 				}
 
 				> div {
+					transition: all 0.3s;
 					border-radius: 10px;
 					padding-left: 10px;
 					padding-right: 0;

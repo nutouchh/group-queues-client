@@ -1,0 +1,62 @@
+import { Meta } from '@storybook/blocks';
+
+import CheckItem from './CheckItem.tsx';
+
+<Meta title='CheckItem/Documentation' />
+
+# CheckItem
+
+## It's used to create list item with status and check label
+
+<br />
+### Work example
+
+<CheckItem
+	text='EXAMPLE'
+	canBeChecked='1'
+	onCheck='1'
+	status='PASSED'
+	onStatusChange='1'
+/>
+
+<br />
+#### Parameters
+<div
+	style={{
+		display: 'inline-flex',
+		flexDirection: 'column',
+		gap: '10px',
+	}}
+>
+	<div>
+		<div style={{
+			display: 'inline-flex', 
+			gap: '20px', 
+			alignItems: 'center', 
+			backgroundColor: 'antiquewhite',
+			borderRadius: '5px',
+			padding: '10px'
+			}}
+		>
+			<span style={{fontSize: '24px'}}><strong>canBeChecked</strong></span>
+			<i style={{fontSize: '24px'}}>&mdash;</i>
+			<span style={{fontSize: '24px'}}>Add check label</span>
+		</div>
+	</div>
+	<div>
+		<div style={{
+			display: 'inline-flex', 
+			gap: '20px', 
+			alignItems: 'center', 
+			backgroundColor: 'antiquewhite',
+			borderRadius: '5px',
+			padding: '10px'
+			}}
+		>
+			<span style={{fontSize: '24px'}}><strong>status</strong></span>
+			<i style={{fontSize: '24px'}}>&mdash;</i>
+			<span style={{fontSize: '24px'}}>What StudentStatus to be set</span>
+		</div>
+	</div>
+
+</div>

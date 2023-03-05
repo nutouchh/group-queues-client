@@ -113,7 +113,7 @@ const StudentsList: FC = () => {
 							text={student.name}
 							key={student.id}
 							canBeChecked={i < 3}
-							onClick={() => onCheck(sortedStudents, student.id)}
+							onCheck={() => onCheck(sortedStudents, student.id)}
 							status={student.status}
 							onStatusChange={(e: SelectChangeEvent) =>
 								onStatusChange(sortedStudents, e, i)

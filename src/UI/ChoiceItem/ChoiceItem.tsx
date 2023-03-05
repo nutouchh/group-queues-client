@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import './choiceItem.scss';
 
-export const ChoiceItem: FC<{
+const ChoiceItem: FC<{
 	text: string;
 	active?: boolean;
 	onClick: (e: React.MouseEvent<HTMLLIElement, MouseEvent>) => void;
@@ -12,3 +12,5 @@ export const ChoiceItem: FC<{
 		</li>
 	);
 };
+
+export default ChoiceItem;
