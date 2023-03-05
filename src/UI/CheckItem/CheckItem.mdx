@@ -1,10 +1,6 @@
-import { Meta } from '@storybook/blocks';
-
-<Meta title='UI/CheckItem' />
-
 # CheckItem
 
-## List item with status and check label
+## Renders list item with status and check label
 
 <br />
 ### Work example
@@ -21,13 +17,13 @@ import CheckItem from './CheckItem.tsx';
 
 ### Parameters
 
-import Param from '../Docs/Param';
-import ParamsList from '../Docs/ParamsList';
+import Block from '../Docs/Block';
+import BlocksList from '../Docs/BlocksList';
 
-<ParamsList>
-	<Param name='text' descr='text inside item' required={true} />
-	<Param name='canBeChecked' descr='add check label' />
-	<Param name='status' descr='what StudentStatus to be set' />
-	<Param name='onCheck()' descr='check event handler' />
-	<Param name='onStatusChange()' descr='status change event handler' />
-</ParamsList>
+<BlocksList>
+	<Block name='text' descr='text inside item' bgColor='danger' />
+	<Block name='canBeChecked' descr='add check label' />
+	<Block name='status' descr='what StudentStatus to be set' />
+	<Block name='onCheck()' descr='check event handler' />
+	<Block name='onStatusChange()' descr='status change event handler' />
+</BlocksList>

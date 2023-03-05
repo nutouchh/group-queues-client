@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Provider } from 'react-redux';
-import { store } from '../../../../store/store';
+import { store } from '../../store/store';
 
-import StudentsList from './StudentsList';
+import StudentsList from './components/StudentsList/StudentsList';
 
 const component = () => (
 	<Provider store={store}>
@@ -11,7 +11,7 @@ const component = () => (
 );
 
 const meta = {
-	title: 'models/StudentsList',
+	title: 'modules/StudentsList',
 	component,
 } satisfies Meta<typeof StudentsList>;
 

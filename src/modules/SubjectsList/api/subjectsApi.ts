@@ -8,9 +8,11 @@ export const subjectsApi = createApi({
 		getSubjects: builder.query<ISubject[], void>({
 			query: () => '',
 		}),
+
 		getSubjectById: builder.query<ISubject, number>({
 			query: id => `/${id}`,
 		}),
+
 		putSubjectById: builder.mutation<void, ISubject>({
 			query: data => ({
 				url: `/${data.id}`,
@@ -25,7 +27,4 @@ export const {
 	useGetSubjectsQuery,
 	useGetSubjectByIdQuery,
 	usePutSubjectByIdMutation,
-	// reducer: subjectsApiReducer,
-	// reducerPath: subjectsApiReducerPath,
-	// middleware: subjectsApiMiddleware,
 } = subjectsApi;

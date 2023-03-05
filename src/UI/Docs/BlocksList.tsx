@@ -1,6 +1,6 @@
 import { FC, ReactNode } from 'react';
 
-const ParamsList: FC<{
+const BlocksList: FC<{
 	children?: ReactNode;
 }> = ({ children }) => {
 	return (
@@ -16,4 +16,4 @@ const ParamsList: FC<{
 	);
 };
 
-export default ParamsList;
+export default BlocksList;
