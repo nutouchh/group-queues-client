@@ -1,0 +1,25 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title='UI/ChoiceItem/Docs' />
+
+# ChoiceItem
+
+## List item with ability to chose it
+
+<br />
+### Work example
+
+import ChoiceItem from './ChoiceItem.tsx';
+
+<ChoiceItem text='EXAMPLE' active='1' />
+
+### Parameters
+
+import Param from '../Docs/Param';
+import ParamsList from '../Docs/ParamsList';
+
+<ParamsList>
+	<Param name='text' descr='text inside item' required={true} />
+	<Param name='active' descr='add active class' />
+	<Param name='onClick()' descr='click event handler' />
+</ParamsList>

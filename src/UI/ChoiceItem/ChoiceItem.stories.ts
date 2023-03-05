@@ -3,15 +3,16 @@ import type { Meta, StoryObj } from '@storybook/react';
 import ChoiceItem from './ChoiceItem';
 
 const meta = {
-	title: 'ChoiceItem',
+	title: 'UI/ChoiceItem',
 	component: ChoiceItem,
 } satisfies Meta<typeof ChoiceItem>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Primary: Story = {
+export const Example: Story = {
 	args: {
-		text: 'Test',
+		text: 'Example',
+		active: true,
 	},
 };

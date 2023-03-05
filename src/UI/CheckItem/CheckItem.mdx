@@ -1,15 +1,15 @@
 import { Meta } from '@storybook/blocks';
 
-import CheckItem from './CheckItem.tsx';
-
-<Meta title='CheckItem/Documentation' />
+<Meta title='UI/CheckItem/Docs' />
 
 # CheckItem
 
-## It's used to create list item with status and check label
+## List item with status and check label
 
 <br />
 ### Work example
+
+import CheckItem from './CheckItem.tsx';
 
 <CheckItem
 	text='EXAMPLE'
@@ -19,44 +19,15 @@ import CheckItem from './CheckItem.tsx';
 	onStatusChange='1'
 />
 
-<br />
-#### Parameters
-<div
-	style={{
-		display: 'inline-flex',
-		flexDirection: 'column',
-		gap: '10px',
-	}}
->
-	<div>
-		<div style={{
-			display: 'inline-flex', 
-			gap: '20px', 
-			alignItems: 'center', 
-			backgroundColor: 'antiquewhite',
-			borderRadius: '5px',
-			padding: '10px'
-			}}
-		>
-			<span style={{fontSize: '24px'}}><strong>canBeChecked</strong></span>
-			<i style={{fontSize: '24px'}}>&mdash;</i>
-			<span style={{fontSize: '24px'}}>Add check label</span>
-		</div>
-	</div>
-	<div>
-		<div style={{
-			display: 'inline-flex', 
-			gap: '20px', 
-			alignItems: 'center', 
-			backgroundColor: 'antiquewhite',
-			borderRadius: '5px',
-			padding: '10px'
-			}}
-		>
-			<span style={{fontSize: '24px'}}><strong>status</strong></span>
-			<i style={{fontSize: '24px'}}>&mdash;</i>
-			<span style={{fontSize: '24px'}}>What StudentStatus to be set</span>
-		</div>
-	</div>
+### Parameters
 
-</div>
+import Param from '../Docs/Param';
+import ParamsList from '../Docs/ParamsList';
+
+<ParamsList>
+	<Param name='text' descr='text inside item' required={true} />
+	<Param name='canBeChecked' descr='add check label' />
+	<Param name='status' descr='what StudentStatus to be set' />
+	<Param name='onCheck()' descr='check event handler' />
+	<Param name='onStatusChange()' descr='status change event handler' />
+</ParamsList>

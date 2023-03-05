@@ -1,6 +1,10 @@
 import { FC } from 'react';
 import './choiceItem.scss';
 
+/**
+ * List item with ability to chose it
+ * @param active - add active class
+ */
 const ChoiceItem: FC<{
 	text: string;
 	active?: boolean;

@@ -3,16 +3,18 @@ import type { Meta, StoryObj } from '@storybook/react';
 import CheckItem from './CheckItem';
 
 const meta = {
-	title: 'CheckItem',
+	title: 'UI/CheckItem',
 	component: CheckItem,
 } satisfies Meta<typeof CheckItem>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Primary: Story = {
+export const Example: Story = {
 	args: {
-		text: 'Test',
+		text: 'Example',
+		canBeChecked: true,
+		status: 'SKIP_AHEAD',
 		onCheck: () => {
 			//
 		},
