@@ -3,7 +3,7 @@ import './mainPage.scss';
 import Header from '../../components/Header/Header';
 import MainPageContent from '../../components/MainPageContent/MainPageContent';
 
-export const MainPage: FC = () => {
+const MainPage: FC = () => {
 	return (
 		<div>
 			<Header />
@@ -13,3 +13,5 @@ export const MainPage: FC = () => {
 		</div>
 	);
 };
+
+export default MainPage;

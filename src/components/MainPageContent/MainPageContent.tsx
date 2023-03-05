@@ -4,7 +4,7 @@ import { StudentsList } from '../../modules/StudentsList';
 const MainPageContent: FC = () => {
 	return (
 		<>
-			<StudentsList></StudentsList>
+			<StudentsList />
 		</>
 	);
 };

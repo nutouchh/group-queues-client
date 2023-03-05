@@ -5,7 +5,7 @@ import './header.scss';
 const Header: FC = () => {
 	return (
 		<header className='header'>
-			<SubjectsList></SubjectsList>
+			<SubjectsList />
 		</header>
 	);
 };
