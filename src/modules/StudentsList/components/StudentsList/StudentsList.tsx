@@ -1,5 +1,6 @@
 import { SelectChangeEvent } from '@mui/material/Select';
 import { FC, useMemo } from 'react';
+import changeName from '../../../../service/changeName';
 import { useTypedDispatch, useTypedSelector } from '../../../../store/store';
 import { setActiveSubject } from '../../../../store/subjects/subjectsSlice';
 import CheckItem from '../../../../UI/CheckItem/CheckItem';
@@ -133,7 +134,7 @@ const StudentsList: FC = () => {
 			{sortedStudents
 				? sortedStudents.map((student, i) => (
 						<CheckItem
-							text={student.name}
+							text={changeName('Белослудцев А. А.')}
 							key={student.id}
 							canBeChecked={i < 3}
 							onCheck={() => onCheck(sortedStudents, student.id)}
