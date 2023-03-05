@@ -1,10 +1,17 @@
 import { FC } from 'react';
 
-const Param: FC<{ name: string; descr: string; required: boolean }> = ({
-	descr,
-	name,
-	required,
-}) => {
+const Param: FC<{
+	name: string;
+	descr: string;
+	required?: boolean;
+	isMethod?: boolean;
+}> = ({ descr, name, required, isMethod }) => {
+	const backgroundColor = required
+		? '#f7cac6'
+		: isMethod
+		? '#c5e3f5'
+		: 'antiquewhite';
+
 	return (
 		<div>
 			<div
@@ -12,7 +19,7 @@ const Param: FC<{ name: string; descr: string; required: boolean }> = ({
 					display: 'inline-flex',
 					gap: '20px',
 					alignItems: 'center',
-					backgroundColor: required ? '#f7cac6' : 'antiquewhite',
+					backgroundColor,
 					borderRadius: '5px',
 					padding: '10px',
 				}}
