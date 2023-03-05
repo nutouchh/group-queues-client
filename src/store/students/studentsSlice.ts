@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { IStudent } from '../../modules/StudentsList/api/types';
 import { IStudentState } from './types';
+import { IStudent } from '../../modules/StudentsList';
 
 const initialState: IStudentState = {
 	list: [],

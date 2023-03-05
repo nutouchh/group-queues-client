@@ -1,14 +1,12 @@
-import { FC, useCallback, useMemo } from 'react';
-import { useTypedSelector } from '../../../../store/store';
-import CheckItem from '../../../../UI/CheckItem/CheckItem';
-import './studentsList.scss';
-import { useTypedDispatch } from '../../../../store/store';
-import { setStudents } from '../../../../store/students/studentsSlice';
-import { IStudent, IStudentWithData, StudentStatus } from '../../api/types';
 import { SelectChangeEvent } from '@mui/material/Select';
-import { useGetStudentsQuery } from '../../api/studentsApi';
+import { FC, useMemo } from 'react';
+import { useTypedDispatch, useTypedSelector } from '../../../../store/store';
 import { setActiveSubject } from '../../../../store/subjects/subjectsSlice';
-import { ISubjectStudentsData } from '../../../SubjectsList/api/types';
+import CheckItem from '../../../../UI/CheckItem/CheckItem';
+import { ISubjectStudentsData } from '../../../SubjectsList';
+import { useGetStudentsQuery } from '../../api/studentsApi';
+import { IStudentWithData, StudentStatus } from '../../api/types';
+import './studentsList.scss';
 
 const StudentsList: FC = () => {
 	const { data: rawStudents } = useGetStudentsQuery();
