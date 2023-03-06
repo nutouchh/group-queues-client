@@ -2,9 +2,9 @@
 
 .choice-item {
 	color: #525252;
-	font-size: 18px;
 	transition: all 0.2s;
 	position: relative;
+	white-space: nowrap;
 	cursor: pointer;
 
 	&:hover {

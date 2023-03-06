@@ -1,4 +1,16 @@
+@import './text.scss';
+
 .MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation1.MuiPaper-root.MuiMenu-paper.MuiPaper-elevation.MuiPaper-rounded {
 	border-radius: 7px;
 	transform: translateY(5px) !important;
+}
+
+.MuiButtonBase-root.MuiMenuItem-root.MuiMenuItem-gutters.MuiMenuItem-root.MuiMenuItem-gutters {
+	min-height: auto;
+}
+
+@media screen and (max-width: 450px) {
+	.MuiButtonBase-root.MuiMenuItem-root.MuiMenuItem-gutters.MuiMenuItem-root.MuiMenuItem-gutters {
+		padding: 1px 12px;
+	}
 }

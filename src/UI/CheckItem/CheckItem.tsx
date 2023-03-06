@@ -38,36 +38,41 @@ const CheckItem: FC<{
 	return (
 		// motion.li is used to add animation after order changing
 		<motion.li layout transition={{ duration: 0.5 }} className='check-item'>
-			<span className='check-item__name'>{text}</span>
+			<span className='check-item__name title'>{text}</span>
 			<div className='check-item__right'>
 				{status ? (
 					// FormControl is used to add drop-down menu
-					<FormControl variant='standard' sx={{ m: 1, minWidth: 180 }}>
+					<FormControl variant='standard' sx={{ m: 1 }}>
 						<Select
 							value={status}
 							onChange={onStatusChange}
 							displayEmpty
 							inputProps={{ 'aria-label': 'Without label' }}
-							className={statusClassName}
+							className={statusClassName + ' small-title'}
 						>
-							<MenuItem value={'PASSED'} className='set-green-dark'>
+							<MenuItem
+								value={'PASSED'}
+								className='set-green-dark small-title'
+							>
 								{StudentStatus.PASSED}
 							</MenuItem>
 							<MenuItem
 								value={'SKIP_AHEAD'}
-								className='set-primary-dark'
+								className='set-primary-dark small-title'
 							>
 								{StudentStatus.SKIP_AHEAD}
 							</MenuItem>
-							<MenuItem value={'WAITING'}>
+							<MenuItem value={'WAITING'} className='small-title'>
 								{StudentStatus.WAITING}
 							</MenuItem>
 						</Select>
 					</FormControl>
 				) : null}
-				{canBeChecked && onCheck ? (
-					<Icons.getCheck onClick={onCheck} />
-				) : null}
+				<div className='check-item__svg'>
+					{canBeChecked && onCheck ? (
+						<Icons.getCheck onClick={onCheck} />
+					) : null}
+				</div>
 			</div>
 		</motion.li>
 	);

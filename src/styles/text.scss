@@ -1,0 +1,49 @@
+@import './vars.scss';
+
+.title {
+	font-size: calc($index * 0.85) !important;
+}
+
+.small-title {
+	font-size: calc($index * 0.7) !important;
+}
+
+@media screen and (max-width: 1500px) {
+	.title {
+		font-size: calc($index * 1) !important;
+	}
+
+	.small-title {
+		font-size: calc($index * 0.85) !important;
+	}
+}
+
+@media screen and (max-width: 1000px) {
+	.title {
+		font-size: calc($index * 1.1) !important;
+	}
+
+	.small-title {
+		font-size: calc($index * 0.95) !important;
+	}
+}
+
+@media screen and (max-width: 750px) {
+	.title {
+		font-size: 18px !important;
+	}
+
+	.small-title {
+		font-size: 16px !important;
+	}
+}
+
+@media screen and (max-width: 450px) {
+	.title {
+		font-size: 16px !important;
+	}
+
+	.small-title {
+		font-size: 14px !important;
+	}
+}

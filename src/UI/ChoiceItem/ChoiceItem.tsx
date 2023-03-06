@@ -11,7 +11,10 @@ const ChoiceItem: FC<{
 	onClick: (e: React.MouseEvent<HTMLLIElement, MouseEvent>) => void;
 }> = ({ text, active, onClick }) => {
 	return (
-		<li className={`choice-item${active ? ' active' : ''}`} onClick={onClick}>
+		<li
+			className={`choice-item small-title${active ? ' active' : ''}`}
+			onClick={onClick}
+		>
 			{text}
 		</li>
 	);
