@@ -3,7 +3,7 @@ import { IStudent } from './types';
 
 export const studentsApi = createApi({
 	reducerPath: 'studentsApi',
-	baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3000/students' }),
+	baseQuery: fetchBaseQuery({ baseUrl: '/api/v1/students' }),
 	endpoints: builder => ({
 		getStudents: builder.query<IStudent[], void>({
 			query: () => ``,

@@ -134,7 +134,7 @@ const StudentsList: FC = () => {
 			{sortedStudents
 				? sortedStudents.map((student, i) => (
 						<CheckItem
-							text={changeName('Белослудцев А. А.')}
+							text={changeName(student.name)}
 							key={student.id}
 							canBeChecked={i < 3}
 							onCheck={() => onCheck(sortedStudents, student.id)}
