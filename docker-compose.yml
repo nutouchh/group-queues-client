@@ -1,0 +1,52 @@
+# Works only with whole application and in ../ directory
+
+version: '3'
+
+services:
+   mysql:
+      image: mysql:8
+      environment:
+         MYSQL_ROOT_PASSWORD: password
+         MYSQL_DATABASE: group-queues-database
+      volumes:
+         - mysql-data:/var/lib/mysql
+      networks:
+         - group-queues-network
+
+   server:
+      build: group-queues-server/StudentsQueue
+      ports:
+         - '8080:8080'
+      environment:
+         SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/group-queues-database
+         SPRING_DATASOURCE_USERNAME: root
+         SPRING_DATASOURCE_PASSWORD: password
+         SERVER_PORT: 8080
+      volumes:
+         - ./group-queues-server/StudentsQueue/src:/app/src
+         - ./group-queues-server/StudentsQueue/target/classes:/app/target/classes
+         - ./group-queues-server/StudentsQueue/target/generated-sources:/app/target/generated-sources
+         - ./group-queues-server/StudentsQueue/target/generated-test-sources:/app/target/generated-test-sources
+         - ./group-queues-server/StudentsQueue/target/maven-status:/app/target/maven-status
+         - ./group-queues-server/StudentsQueue/target/test-classes:/app/target/test-classes
+      depends_on:
+         - mysql
+      networks:
+         - group-queues-network
+
+   client:
+      build: group-queues-client
+      ports:
+         - '80:80'
+      volumes:
+         - ./group-queues-client/src:/app/src
+      depends_on:
+         - server
+      networks:
+         - group-queues-network
+
+networks:
+   group-queues-network:
+
+volumes:
+   mysql-data:
