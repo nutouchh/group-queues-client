@@ -3,7 +3,6 @@
 	"private": true,
 	"version": "0.1.0",
 	"type": "commonjs",
-	"proxy": "http://localhost:8080",
 	"scripts": {
 		"dev": "vite --port 80",
 		"build": "tsc && vite build",

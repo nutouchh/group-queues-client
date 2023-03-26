@@ -3,7 +3,7 @@ import { ISubject } from './types';
 
 export const subjectsApi = createApi({
 	reducerPath: 'subjectsApi',
-	baseQuery: fetchBaseQuery({ baseUrl: '/api/v1/subjects' }),
+	baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:8080/api/subjects' }),
 	endpoints: builder => ({
 		getSubjects: builder.query<ISubject[], void>({
 			query: () => '',
