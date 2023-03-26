@@ -4,7 +4,11 @@ import changeName from '../../../../service/changeName';
 import { useTypedDispatch, useTypedSelector } from '../../../../store/store';
 import { setActiveSubject } from '../../../../store/subjects/subjectsSlice';
 import CheckItem from '../../../../UI/CheckItem/CheckItem';
-import { ISubjectStudentsData } from '../../../SubjectsList';
+import {
+	ISubjectStudentsData,
+	usePutStudentDataBySubjectIdMutation,
+	usePutSubjectByIdMutation,
+} from '../../../SubjectsList';
 import { useGetStudentsQuery } from '../../api/studentsApi';
 import { IStudentWithData, StudentStatus } from '../../api/types';
 import './studentsList.scss';
@@ -17,6 +21,8 @@ const StudentsList: FC = () => {
 
 	// get 'api' data
 	const { data: rawStudents } = useGetStudentsQuery();
+	const [putSubject] = usePutSubjectByIdMutation();
+	const [putSubjectStudent] = usePutStudentDataBySubjectIdMutation();
 
 	// get dispatch
 	const dispatch = useTypedDispatch();
@@ -82,10 +88,10 @@ const StudentsList: FC = () => {
 				newStudents.push({ id: checkedStudent.id, status: 'WAITING' });
 			}
 
-			// update state (to send data to the server)
-			dispatch(
-				setActiveSubject({ ...activeSubject, studentsData: newStudents })
-			);
+			// update state and send data to the server
+			const newSubject = { ...activeSubject, studentsData: newStudents };
+			putSubject(newSubject);
+			dispatch(setActiveSubject(newSubject));
 		}
 	};
 
@@ -97,29 +103,29 @@ const StudentsList: FC = () => {
 	const onStatusChange = (
 		e: SelectChangeEvent,
 		students: IStudentWithData[],
-		index: number
+		studentId: number
 	) => {
 		if (activeSubject) {
 			const targetStatus = e.target.value as keyof typeof StudentStatus;
 
 			// mapping through students and edit status of student with {index}
-			const newStudents: ISubjectStudentsData[] = students.map(
-				(student, i) => {
-					if (i < index || i > index) {
-						return {
-							id: student.id,
-							status: student.status,
-						};
-					}
-
-					return {
-						id: student.id,
-						status: targetStatus,
-					};
+			const newStudents: ISubjectStudentsData[] = students.map(student => {
+				if (student.id != studentId) {
+					return student;
 				}
-			);
 
-			// update state (to send data to the server)
+				return {
+					id: studentId,
+					status: targetStatus,
+				};
+			});
+
+			// update state and send data to the server
+			putSubjectStudent({
+				status: targetStatus,
+				studentId,
+				subjectId: activeSubject.id,
+			});
 			dispatch(
 				setActiveSubject({
 					...activeSubject,
@@ -140,7 +146,7 @@ const StudentsList: FC = () => {
 							onCheck={() => onCheck(sortedStudents, student.id)}
 							status={student.status}
 							onStatusChange={(e: SelectChangeEvent) =>
-								onStatusChange(e, sortedStudents, i)
+								onStatusChange(e, sortedStudents, student.id)
 							}
 						></CheckItem>
 				  ))

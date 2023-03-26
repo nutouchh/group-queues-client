@@ -5,6 +5,12 @@ export interface ISubjectStudentsData {
 	status: keyof typeof StudentStatus;
 }
 
+export interface IPutSubjectStudentData {
+	subjectId: number;
+	studentId: number;
+	status: keyof typeof StudentStatus;
+}
+
 export interface ISubject {
 	name: string;
 	id: number;
