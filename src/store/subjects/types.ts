@@ -1,6 +1,6 @@
-import { ISubject } from '../../modules/SubjectsList';
+import { ISubjectFullData } from '../../modules/SubjectsList';
 
 export interface ISubjectState {
-	activeSubject: ISubject | undefined;
+	activeSubject: ISubjectFullData | undefined;
 	activeId: number;
 }

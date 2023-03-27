@@ -1,6 +1,6 @@
 FROM node:current-slim
 
-WORKDIR /app
+WORKDIR /client
 
 COPY /src ./src
 COPY index.html .
@@ -18,7 +18,7 @@ RUN npm run build
 EXPOSE 80
 
 # development
-# CMD ["npm", "run", "dev"]
+CMD ["npm", "run", "dev"]
 
 # production
-CMD ["npm", "run", "preview"]
+# CMD ["npm", "run", "preview"]

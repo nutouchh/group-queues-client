@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react';
-import { IPutSubjectStudentData, ISubject } from './types';
+import { IPutSubjectStudentData, ISubject, ISubjectFullData } from './types';
 
 export const subjectsApi = createApi({
 	reducerPath: 'subjectsApi',
@@ -9,7 +9,7 @@ export const subjectsApi = createApi({
 			query: () => '',
 		}),
 
-		getSubjectById: builder.query<ISubject, number>({
+		getSubjectById: builder.query<ISubjectFullData, number>({
 			query: id => `/${id}`,
 		}),
 
@@ -17,7 +17,7 @@ export const subjectsApi = createApi({
 			query: data => ({
 				url: `/${data.id}`,
 				method: 'PUT',
-				body: { name: data.name, studentsData: data.studentsData },
+				body: data,
 			}),
 		}),
 
@@ -26,7 +26,7 @@ export const subjectsApi = createApi({
 				query: data => ({
 					url: `/${data.subjectId}/students/${data.studentId}`,
 					method: 'PUT',
-					body: { status: data.status },
+					body: data,
 				}),
 			}
 		),

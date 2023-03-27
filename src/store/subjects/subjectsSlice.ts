@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { ISubjectState } from './types';
-import { ISubject } from '../../modules/SubjectsList';
+import { ISubjectFullData } from '../../modules/SubjectsList';
 
 /**
  * @property activeSubject: chosen subject's data
@@ -17,7 +17,7 @@ const subjectsSlice = createSlice({
 	name: 'subjects',
 	initialState,
 	reducers: {
-		setActiveSubject(state, action: PayloadAction<ISubject>) {
+		setActiveSubject(state, action: PayloadAction<ISubjectFullData>) {
 			state.activeSubject = action.payload;
 		},
 		setActiveSubjectId(state, action: PayloadAction<number>) {

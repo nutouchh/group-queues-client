@@ -1,16 +1,16 @@
 import { SelectChangeEvent } from '@mui/material/Select';
-import { FC, useMemo } from 'react';
+import { FC } from 'react';
 import changeName from '../../../../service/changeName';
 import { useTypedDispatch, useTypedSelector } from '../../../../store/store';
 import { setActiveSubject } from '../../../../store/subjects/subjectsSlice';
 import CheckItem from '../../../../UI/CheckItem/CheckItem';
 import {
-	ISubjectStudentsData,
+	ISubjectStudent,
+	ISubjectStudentFullData,
 	usePutStudentDataBySubjectIdMutation,
 	usePutSubjectByIdMutation,
 } from '../../../SubjectsList';
-import { useGetStudentsQuery } from '../../api/studentsApi';
-import { IStudentWithData, StudentStatus } from '../../api/types';
+import { StudentStatus } from '../../api/types';
 import './studentsList.scss';
 
 const StudentsList: FC = () => {
@@ -18,9 +18,9 @@ const StudentsList: FC = () => {
 	const activeSubject = useTypedSelector(
 		state => state.subjects.activeSubject
 	);
+	const students = activeSubject?.students;
 
 	// get 'api' data
-	const { data: rawStudents } = useGetStudentsQuery();
 	const [putSubject] = usePutSubjectByIdMutation();
 	const [putSubjectStudent] = usePutStudentDataBySubjectIdMutation();
 
@@ -28,70 +28,49 @@ const StudentsList: FC = () => {
 	const dispatch = useTypedDispatch();
 
 	/**
-	 * create from raw students list students list "sorted" by data of active subject
-	 * @depends_on [rawStudents, activeSubject]
-	 */
-	const sortedStudents = useMemo<IStudentWithData[] | undefined>(
-		function (): IStudentWithData[] | undefined {
-			if (!rawStudents || !activeSubject) {
-				return undefined;
-			}
-
-			const newStudents: IStudentWithData[] = activeSubject.studentsData.map(
-				student => {
-					// create student from subject data
-					const newStudent: IStudentWithData = {
-						...student,
-						name: '...',
-					};
-
-					// find name by id from raw students
-					const name = rawStudents.find(
-						student => student.id == newStudent.id
-					)?.name;
-
-					if (name) {
-						newStudent.name = name;
-					}
-
-					return newStudent;
-				}
-			);
-
-			return newStudents;
-		},
-		[rawStudents, activeSubject]
-	);
-
-	/**
 	 * move checked student to the end of the list and change their status to default
 	 * @param students rendered students
 	 * @param id checked student's id
 	 */
-	const onCheck = (students: IStudentWithData[], id: number) => {
+	const onCheck = (students: ISubjectStudentFullData[], id: number) => {
 		if (activeSubject) {
-			const newStudents: ISubjectStudentsData[] = [];
+			const studentsForServer: ISubjectStudent[] = [];
+			const studentsForClient: ISubjectStudentFullData[] = [];
 
 			// use forEach to combine filter and map
-			// we need to create from IStudentWithData[] -> ISubjectStudentsData[]
-			students.forEach((student, i) => {
+			// we need to create from ISubjectStudentFullData[] -> ISubjectStudent[]
+			students.forEach(({ student, status }, i) => {
 				if (student.id != id) {
-					newStudents.push({ id: student.id, status: student.status });
+					studentsForServer.push({ studentId: student.id, status });
+					studentsForClient.push({ student, status });
 				}
 			});
 
-			const checkedStudent: ISubjectStudentsData | undefined = students.find(
-				student => student.id == id
-			);
+			const checkedStudentData: ISubjectStudentFullData | undefined =
+				students.find(({ student }) => student.id == id);
 
-			if (checkedStudent) {
-				newStudents.push({ id: checkedStudent.id, status: 'WAITING' });
+			if (checkedStudentData) {
+				studentsForServer.push({
+					studentId: checkedStudentData.student.id,
+					status: 'WAITING',
+				});
+				studentsForClient.push({
+					student: checkedStudentData.student,
+					status: 'WAITING',
+				});
 			}
 
 			// update state and send data to the server
-			const newSubject = { ...activeSubject, studentsData: newStudents };
-			putSubject(newSubject);
-			dispatch(setActiveSubject(newSubject));
+			const newSubjectForServer = {
+				...activeSubject,
+				students: studentsForServer,
+			};
+			const newSubjectForClient = {
+				...activeSubject,
+				students: studentsForClient,
+			};
+			putSubject(newSubjectForServer);
+			dispatch(setActiveSubject(newSubjectForClient));
 		}
 	};
 
@@ -102,23 +81,25 @@ const StudentsList: FC = () => {
 	 */
 	const onStatusChange = (
 		e: SelectChangeEvent,
-		students: IStudentWithData[],
+		students: ISubjectStudentFullData[],
 		studentId: number
 	) => {
 		if (activeSubject) {
 			const targetStatus = e.target.value as keyof typeof StudentStatus;
 
 			// mapping through students and edit status of student with {index}
-			const newStudents: ISubjectStudentsData[] = students.map(student => {
-				if (student.id != studentId) {
-					return student;
-				}
+			const newStudents: ISubjectStudentFullData[] = students.map(
+				studentsData => {
+					if (studentsData.student.id != studentId) {
+						return studentsData;
+					}
 
-				return {
-					id: studentId,
-					status: targetStatus,
-				};
-			});
+					return {
+						student: studentsData.student,
+						status: targetStatus,
+					};
+				}
+			);
 
 			// update state and send data to the server
 			putSubjectStudent({
@@ -129,7 +110,7 @@ const StudentsList: FC = () => {
 			dispatch(
 				setActiveSubject({
 					...activeSubject,
-					studentsData: newStudents,
+					students: newStudents,
 				})
 			);
 		}
@@ -137,16 +118,16 @@ const StudentsList: FC = () => {
 
 	return (
 		<ul className='students-list'>
-			{sortedStudents
-				? sortedStudents.map((student, i) => (
+			{students
+				? students.map(({ status, student }, i) => (
 						<CheckItem
 							text={changeName(student.name)}
 							key={student.id}
 							canBeChecked={i < 3}
-							onCheck={() => onCheck(sortedStudents, student.id)}
-							status={student.status}
+							onCheck={() => onCheck(students, student.id)}
+							status={status}
 							onStatusChange={(e: SelectChangeEvent) =>
-								onStatusChange(e, sortedStudents, student.id)
+								onStatusChange(e, students, student.id)
 							}
 						></CheckItem>
 				  ))

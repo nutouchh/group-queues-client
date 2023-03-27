@@ -1,8 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
-import { studentsApi } from '../modules/StudentsList';
 import { subjectsApi } from '../modules/SubjectsList';
-import studentsSlice from './students/studentsSlice';
 import subjectsSlice from './subjects/subjectsSlice';
 
 export const store = configureStore({
@@ -10,17 +8,12 @@ export const store = configureStore({
 	// and 2 reducers for 'api' state
 	reducer: {
 		subjects: subjectsSlice,
-		students: studentsSlice,
-		[studentsApi.reducerPath]: studentsApi.reducer,
 		[subjectsApi.reducerPath]: subjectsApi.reducer,
 	},
 
 	// middlewares for apis' stable work
 	middleware: getDefaultMiddleware =>
-		getDefaultMiddleware().concat(
-			studentsApi.middleware,
-			subjectsApi.middleware
-		),
+		getDefaultMiddleware().concat(subjectsApi.middleware),
 
 	devTools: true,
 });

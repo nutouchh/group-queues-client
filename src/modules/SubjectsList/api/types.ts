@@ -1,12 +1,6 @@
-import { StudentStatus } from '../../StudentsList';
+import { IStudent, StudentStatus } from '../../StudentsList';
 
-export interface ISubjectStudentsData {
-	id: number;
-	status: keyof typeof StudentStatus;
-}
-
-export interface IPutSubjectStudentData {
-	subjectId: number;
+export interface ISubjectStudent {
 	studentId: number;
 	status: keyof typeof StudentStatus;
 }
@@ -14,5 +8,22 @@ export interface IPutSubjectStudentData {
 export interface ISubject {
 	name: string;
 	id: number;
-	studentsData: ISubjectStudentsData[];
+	students: ISubjectStudent[];
+}
+
+export interface ISubjectStudentFullData {
+	student: IStudent;
+	status: keyof typeof StudentStatus;
+}
+
+export interface ISubjectFullData {
+	name: string;
+	id: number;
+	students: ISubjectStudentFullData[];
+}
+
+export interface IPutSubjectStudentData {
+	subjectId: number;
+	studentId: number;
+	status: keyof typeof StudentStatus;
 }
