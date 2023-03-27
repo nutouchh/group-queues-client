@@ -8,7 +8,6 @@ import ChoiceItem from '../../../../UI/ChoiceItem/ChoiceItem';
 import {
 	useGetSubjectByIdQuery,
 	useGetSubjectsQuery,
-	usePutSubjectByIdMutation,
 } from '../../api/subjectsApi';
 import './subjectsList.scss';
 
@@ -18,13 +17,9 @@ import './subjectsList.scss';
 const SubjectsList: FC = () => {
 	// get 'slice' state
 	const activeId = useTypedSelector(state => state.subjects.activeId);
-	const activeSubject = useTypedSelector(
-		state => state.subjects.activeSubject
-	);
 
 	// get 'api' data
 	const { data: subjects } = useGetSubjectsQuery();
-	const [putActiveSubject] = usePutSubjectByIdMutation();
 	const { data: fetchedActiveSubject, refetch: fetchActiveSubject } =
 		useGetSubjectByIdQuery(activeId);
 
@@ -49,13 +44,6 @@ const SubjectsList: FC = () => {
 			dispatch(setActiveSubject(fetchedActiveSubject));
 		}
 	}, [fetchedActiveSubject]);
-
-	// when user changes local subject data we send them to the server
-	useEffect(() => {
-		if (activeSubject) {
-			putActiveSubject(activeSubject);
-		}
-	}, [activeSubject]);
 
 	return (
 		<ul className='subjects-list'>
