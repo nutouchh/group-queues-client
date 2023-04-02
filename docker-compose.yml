@@ -1,5 +1,3 @@
-# Works only with whole application and in ../ directory
-
 version: '3'
 
 services:
@@ -14,7 +12,7 @@ services:
          - group-queues-network
 
    server:
-      build: group-queues-server/StudentsQueue
+      build: group-queues-server
       ports:
          - '8080:8080'
       environment:
@@ -23,12 +21,12 @@ services:
          SPRING_DATASOURCE_PASSWORD: password
          SERVER_PORT: 8080
       volumes:
-         - ./group-queues-server/StudentsQueue/src:/app/src
-         - ./group-queues-server/StudentsQueue/target/classes:/app/target/classes
-         - ./group-queues-server/StudentsQueue/target/generated-sources:/app/target/generated-sources
-         - ./group-queues-server/StudentsQueue/target/generated-test-sources:/app/target/generated-test-sources
-         - ./group-queues-server/StudentsQueue/target/maven-status:/app/target/maven-status
-         - ./group-queues-server/StudentsQueue/target/test-classes:/app/target/test-classes
+         - ./group-queues-server/src:/server/src
+         - ./group-queues-server/target/classes:/server/target/classes
+         - ./group-queues-server/target/generated-sources:/server/target/generated-sources
+         - ./group-queues-server/target/generated-test-sources:/server/target/generated-test-sources
+         - ./group-queues-server/target/maven-status:/server/target/maven-status
+         - ./group-queues-server/target/test-classes:/server/target/test-classes
       depends_on:
          - mysql
       networks:
@@ -39,7 +37,8 @@ services:
       ports:
          - '80:80'
       volumes:
-         - ./group-queues-client/src:/app/src
+         - ./group-queues-client/src:/client/src
+         - ./group-queues-client/vite.config.ts:/client/vite.config.ts
       depends_on:
          - server
       networks:
