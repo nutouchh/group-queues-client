@@ -3,7 +3,9 @@ import { IPutSubjectStudentData, ISubject, ISubjectFullData } from './types';
 
 export const subjectsApi = createApi({
 	reducerPath: 'subjectsApi',
-	baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:8080/api/subjects' }),
+	baseQuery: fetchBaseQuery({
+		baseUrl: 'http://n140935672385.fvds.ru:8080/api/subjects',
+	}),
 	endpoints: builder => ({
 		getSubjects: builder.query<ISubject[], void>({
 			query: () => '',
