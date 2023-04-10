@@ -1,0 +1,51 @@
+version: '3'
+
+services:
+   mysql:
+      image: mysql:8
+      environment:
+         MYSQL_ROOT_PASSWORD: password
+         MYSQL_DATABASE: group-queues-database
+      volumes:
+         - mysql-data:/var/lib/mysql
+      networks:
+         - group-queues-network
+
+   server:
+      build: group-queues-server
+      ports:
+         - '8080:8080'
+      environment:
+         SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/group-queues-database
+         SPRING_DATASOURCE_USERNAME: root
+         SPRING_DATASOURCE_PASSWORD: password
+         SERVER_PORT: 8080
+      volumes:
+         - ./group-queues-server/src:/server/src
+         - ./group-queues-server/target/classes:/server/target/classes
+         - ./group-queues-server/target/generated-sources:/server/target/generated-sources
+         - ./group-queues-server/target/generated-test-sources:/server/target/generated-test-sources
+         - ./group-queues-server/target/maven-status:/server/target/maven-status
+         - ./group-queues-server/target/test-classes:/server/target/test-classes
+      depends_on:
+         - mysql
+      networks:
+         - group-queues-network
+
+   client:
+      build: group-queues-client
+      ports:
+         - '80:80'
+      volumes:
+         - ./group-queues-client/src:/client/src
+         - ./group-queues-client/vite.config.ts:/client/vite.config.ts
+      depends_on:
+         - server
+      networks:
+         - group-queues-network
+
+networks:
+   group-queues-network:
+
+volumes:
+   mysql-data:

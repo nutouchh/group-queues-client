@@ -1,0 +1,28 @@
+.subjects-list {
+	display: inline-flex;
+	gap: 25px;
+}
+
+@media screen and (max-width: 750px) {
+	.subjects-list {
+		display: flex;
+		align-items: center;
+		margin: 0 auto;
+		overflow-y: hidden;
+		height: 52px;
+		gap: 15px;
+		padding: 0 20px;
+
+		&::-webkit-scrollbar {
+			width: 0;
+		}
+
+		-webkit-mask-image: linear-gradient(
+			to right,
+			transparent,
+			black 5%,
+			black 95%,
+			transparent
+		);
+	}
+}

@@ -1,0 +1,25 @@
+$green: #5daf50;
+$green-dark: darken(
+	$color: $green,
+	$amount: 13%,
+);
+$green-light: lighten(
+	$color: $green,
+	$amount: 23%,
+);
+
+$primary: #cda16e;
+$primary-dark: darken(
+	$color: $primary,
+	$amount: 13%,
+);
+$primary-light: lighten(
+	$color: $primary,
+	$amount: 20%,
+);
+
+$light: #d3d3d3c5;
+
+$red: #af5050;
+
+$index: calc(1vw + 1vh);

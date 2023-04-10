@@ -1,0 +1,42 @@
+@import '../../styles/vars.scss';
+
+.choice-item {
+	color: #525252;
+	transition: all 0.2s;
+	position: relative;
+	white-space: nowrap;
+	cursor: pointer;
+
+	&:hover {
+		color: #000;
+	}
+
+	&::before,
+	&::after {
+		content: '';
+		position: absolute;
+		background-color: $green;
+		width: 0;
+		height: 2px;
+		transition: all 0.3s;
+	}
+
+	&::before {
+		left: -8px;
+		top: -4px;
+	}
+
+	&::after {
+		right: -8px;
+		bottom: -7px;
+	}
+
+	&.active {
+		color: #000;
+
+		&::after,
+		&::before {
+			width: 30px;
+		}
+	}
+}

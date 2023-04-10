@@ -1,0 +1,165 @@
+@import '../../styles/vars.scss';
+
+.check-item {
+	display: flex;
+	justify-content: space-between;
+	background-color: rgba($color: #7ec4f8, $alpha: 0.23);
+	padding: 10px 16px;
+	border-radius: 5px;
+
+	&__name {
+		color: #000;
+	}
+
+	&__right {
+		display: inline-flex;
+		align-items: center;
+		justify-content: flex-start;
+		gap: 20px;
+
+		.MuiFormControl-root {
+			.css-m5hdmq-MuiInputBase-root-MuiInput-root-MuiSelect-root {
+				&::before {
+					border-bottom: none;
+				}
+				&:hover::before {
+					border-bottom: none;
+				}
+			}
+
+			margin: 0;
+
+			> div {
+				border-radius: 10px;
+				justify-content: flex-end;
+
+				&.Mui-focused {
+					> div {
+						box-shadow: 0 0 1px 1px #00000056;
+					}
+					&.green-light > div {
+						background-color: rgba($green-light, 0.8);
+					}
+					&.primary-light > div {
+						background-color: rgba($primary-light, 0.8);
+					}
+					&.light > div {
+						background-color: rgba($light, 0.6);
+					}
+				}
+
+				&::after,
+				&::before {
+					content: none;
+				}
+
+				> div {
+					transition: all 0.3s;
+					border-radius: 10px;
+					padding-left: 10px;
+					padding-right: 0;
+					width: auto;
+				}
+
+				&.green-light > div {
+					background-color: $green-light;
+				}
+				&.primary-light > div {
+					background-color: $primary-light;
+				}
+				&.light > div {
+					background-color: $light;
+				}
+			}
+		}
+	}
+
+	&__svg {
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
+		min-width: 43px;
+
+		svg {
+			cursor: pointer;
+			width: calc($index * 1.3);
+		}
+	}
+}
+
+@media screen and (max-width: 1920px) {
+	.check-item {
+		&__right {
+			gap: 4px;
+		}
+	}
+}
+
+@media screen and (max-width: 1600px) {
+	.check-item {
+		padding-right: 12px;
+
+		&__svg {
+			min-width: 40px;
+
+			svg {
+				width: calc($index * 1.45);
+			}
+		}
+
+		&__name {
+			transform: translateY(3px);
+		}
+	}
+}
+
+@media screen and (max-width: 1350px) {
+	.check-item {
+		&__svg {
+			min-width: 40px;
+
+			svg {
+				width: calc($index * 1.55);
+			}
+		}
+	}
+}
+
+@media screen and (max-width: 1100px) {
+	.check-item {
+		&__svg {
+			min-width: 37px;
+
+			svg {
+				width: calc($index * 1.7);
+			}
+		}
+	}
+}
+
+@media screen and (max-width: 750px) {
+	.check-item {
+		&__svg {
+			min-width: 37px;
+
+			svg {
+				width: calc($index * 2.3);
+			}
+		}
+	}
+}
+
+@media screen and (max-width: 550px) {
+	.check-item {
+		box-shadow: 0 0 5px 1px #b9b9b9;
+		padding: 8px;
+
+		&__svg {
+			min-width: 30px;
+
+			svg {
+				width: 25px;
+			}
+		}
+	}
+}

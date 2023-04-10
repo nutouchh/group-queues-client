@@ -1,0 +1,33 @@
+# SubjectsList
+
+## Renders list of subjects
+
+<br />
+
+### Receives no params
+
+---
+
+### Requests to API
+
+import Block from '../../UI/Docs/Block';
+import BlocksList from '../../UI/Docs/BlocksList';
+
+<BlocksList>
+	<Block name='base url' descr='/subjects' bgColor='info' />
+	<Block
+		prefixBlock={{ text: 'GET' }}
+		name='just so'
+		descr='get all subjects'
+	/>
+	<Block
+		prefixBlock={{ text: 'GET' }}
+		name='to /{id}'
+		descr='get subject by id'
+	/>
+	<Block
+		prefixBlock={{ text: 'PUT', color: 'orange' }}
+		name='to /{id}'
+		descr='put subject by id'
+	/>
+</BlocksList>
