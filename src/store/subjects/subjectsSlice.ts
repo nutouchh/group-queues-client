@@ -9,7 +9,7 @@ import { ISubjectFullData } from '../../modules/SubjectsList';
  */
 const initialState: ISubjectState = {
 	activeSubject: undefined,
-	activeId: 0,
+	activeId: 4,
 };
 
 // slice with necessary local state for subjects
