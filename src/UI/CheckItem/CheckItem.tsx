@@ -37,7 +37,7 @@ const CheckItem: FC<{
 
 	return (
 		// motion.li is used to add animation after order changing
-		<motion.li layout transition={{ duration: 0.5 }} className='check-item'>
+		<motion.li layout transition={{ duration: 0.8 }} className='check-item'>
 			<span className='check-item__name title'>{text}</span>
 			<div className='check-item__right'>
 				{status ? (
